@@ -31,6 +31,14 @@ public class ExecutorFacade implements ExecutorInterface {
         ProgramState.getInstance().pcHistory.add(pc);
     }
 
+    // Simply checks the next instruction being executed, which will be
+    // stored in register 15, and if the instruction is a read, the function
+    // returns true.
+    public boolean checkForRead() {
+        Hex4digit inst = ProgramState.getInstance().memoryStateHistory.get(MEMORYSTATEINDEX).get(ProgramState.getInstance().registers[15].getValue());
+        return inst.getFirst() == 'd';
+    }
+
     // takes in a hex4digit instruction and based on the first value
     // executes the corresponding instruction from the InstructionSet class
     //
