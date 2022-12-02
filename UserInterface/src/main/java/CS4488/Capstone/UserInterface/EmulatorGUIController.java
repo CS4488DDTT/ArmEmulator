@@ -23,7 +23,7 @@ public class EmulatorGUIController {
     */
     private int totalStates = 0;
 
-    private final int maxDisplayableStates = 499;
+    private final int maxDisplayableStates = 65535;
 
     private boolean badBool = false;
 
@@ -64,6 +64,9 @@ public class EmulatorGUIController {
 
     @FXML
     private TextField R3;
+
+    @FXML
+    private TextField R4;
 
     @FXML
     private TextField IN;
@@ -177,7 +180,7 @@ public class EmulatorGUIController {
     @FXML
     void initializeMemoryTable(){
         short annoying = 0;
-        RAM = new String[256][500];
+        RAM = new String[256][65535];
         for (int i = 1;i<255;i++){
             for(int j = 1; j < 2; j++){
                 RAM[i][j] = String.valueOf(orc.convertToHexChars(annoying));
@@ -204,7 +207,7 @@ public class EmulatorGUIController {
 
         String memArray = "";
         for (int i = 0; i< 255;i++){
-            for( int j = 0; j < 2; j++){
+            for( int j = 0; j < 1; j++){
                 memArray += RAM[i][j] + "  ";
             }
             memArray += "\n";
@@ -228,7 +231,7 @@ public class EmulatorGUIController {
             memoryTable.clear();
             String memArray = "";
             for (int i = 0; i< 255;i++){
-                for( int j = 0; j < totalStates-1; j++){
+                for( int j = 0; j < totalStates; j++){
                     memArray += RAM[i][j] + "  ";
                 }
                 memArray += "\n";
@@ -258,9 +261,7 @@ public class EmulatorGUIController {
      */
     @FXML
     private void setRAMValues(int n) {
-        if(n>=maxDisplayableStates){
-            throw new RuntimeException();
-        }
+
         RAM[0][n]= String.valueOf(orc.convertToHexChars(Short.valueOf(String.valueOf(n))));
 
         for (int i = 1;i<255;i++){
@@ -340,6 +341,9 @@ public class EmulatorGUIController {
 
         R3.setText(String.valueOf(orc.getProgramState().registers[3].getHexChars()));
 
+        R4.setText(String.valueOf(orc.getProgramState().registers[4].getHexChars()));
+
+
         pc.setText(String.valueOf(orc.getProgramState().registers[15].getValue()));
 
 
@@ -410,7 +414,7 @@ public class EmulatorGUIController {
             System.out.println("I am in execute step");
         }
 
-        //I was right here getting updating of ram values working
+
 
         updateRAMValuesInDisplay();
     }
