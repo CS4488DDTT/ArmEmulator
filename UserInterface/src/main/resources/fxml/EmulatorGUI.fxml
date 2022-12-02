@@ -44,10 +44,10 @@
 
 <VBox prefHeight="400.0" prefWidth="640.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="CS4488.Capstone.UserInterface.EmulatorGUIController">
   <children>
-    <AnchorPane maxHeight="-1.0" maxWidth="-1.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" style="-fx-background-color: #f47920;" VBox.vgrow="ALWAYS">
+    <AnchorPane minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" style="-fx-background-color: #f47920;" VBox.vgrow="ALWAYS">
       <children>
-            <Button fx:id="loadButton" layoutX="8.0" layoutY="8.0" mnemonicParsing="false" onAction="#loadFile" text="Load" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0" />
-            <Button fx:id="exitButton" layoutX="591.0" layoutY="8.0" mnemonicParsing="false" onAction="#exit" text="Exit" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+            <Button fx:id="loadButton" layoutY="2.0" mnemonicParsing="false" onAction="#loadFile" text="Load" />
+            <Button fx:id="exitButton" layoutX="1245.0" layoutY="2.0" mnemonicParsing="false" onAction="#exit" text="Exit" />
             <Text layoutX="279.0" layoutY="64.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Input">
                <font>
                   <Font size="18.0" />
@@ -64,20 +64,20 @@
                   <Button fx:id="abortButton" mnemonicParsing="false" onAction="#abortProgram" text="Abort" />
               </buttons>
             </ButtonBar>
-            <TextField fx:id="pc" editable="false" layoutX="551.0" layoutY="114.0" prefHeight="25.0" prefWidth="60.0" AnchorPane.bottomAnchor="581.0" AnchorPane.rightAnchor="669.0" AnchorPane.topAnchor="114.0" />
+            <TextField fx:id="pc" editable="false" layoutX="551.0" layoutY="114.0" prefHeight="25.0" prefWidth="60.0" />
             <TextField fx:id="IN" layoutX="621.0" layoutY="114.0" prefHeight="25.0" prefWidth="60.0" />
             <TextField fx:id="OUT" editable="false" layoutX="691.0" layoutY="114.0" prefHeight="25.0" prefWidth="60.0" />
-            <Text layoutX="574.0" layoutY="99.0" strokeType="OUTSIDE" strokeWidth="0.0" text="PC" AnchorPane.leftAnchor="574.0" AnchorPane.rightAnchor="691.849609375" />
-            <Text layoutX="644.0" layoutY="99.0" strokeType="OUTSIDE" strokeWidth="0.0" text="IN" AnchorPane.leftAnchor="644.0" AnchorPane.rightAnchor="623.830078125" />
+            <Text layoutX="574.0" layoutY="99.0" strokeType="OUTSIDE" strokeWidth="0.0" text="PC" />
+            <Text layoutX="644.0" layoutY="99.0" strokeType="OUTSIDE" strokeWidth="0.0" text="IN" />
             <TextField fx:id="decToHexConversionTextField" layoutX="998.0" layoutY="140.0" prefHeight="25.0" prefWidth="130.0" promptText="Enter decimal value " />
-            <Text layoutX="1005.0" layoutY="90.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Hex Converter" wrappingWidth="116.103515625">
+            <Text layoutX="1005.0" layoutY="121.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Hex Converter" wrappingWidth="116.103515625">
                <font>
                   <Font size="18.0" />
                </font></Text>
             <Button fx:id="hexConverterDecimalToHexButton" layoutX="998.0" layoutY="177.0" mnemonicParsing="false" onAction="#decimalToHex" prefHeight="25.0" prefWidth="130.0" text="Decimal to Hex" />
             <Button fx:id="hexConverterHexToDecimalButton" layoutX="998.0" layoutY="259.0" mnemonicParsing="false" onAction="#hexToDecimal" prefHeight="25.0" prefWidth="130.0" text="Hex to Decimal" />
-            <Text layoutX="702.0" layoutY="99.0" strokeType="OUTSIDE" strokeWidth="0.0" text="OUT" AnchorPane.leftAnchor="702.0" AnchorPane.rightAnchor="554.421875" />
-            <TextArea fx:id="inputBox" layoutX="94.0" layoutY="71.0" prefHeight="305.0" prefWidth="412.0" promptText="Please load a file" AnchorPane.bottomAnchor="344.0" AnchorPane.leftAnchor="94.0" AnchorPane.rightAnchor="774.0" AnchorPane.topAnchor="71.0" />
+            <Text layoutX="702.0" layoutY="99.0" strokeType="OUTSIDE" strokeWidth="0.0" text="OUT" />
+            <TextArea fx:id="inputBox" layoutX="94.0" layoutY="71.0" prefHeight="305.0" prefWidth="412.0" promptText="Please load a file" />
             <Text layoutX="1122.0" layoutY="584.0" strokeType="OUTSIDE" strokeWidth="0.0" />
             <TextField fx:id="hexToDecConversionTextField" layoutX="998.0" layoutY="219.0" prefHeight="25.0" prefWidth="130.0" promptText="Enter hex value  " />
             <TextField fx:id="R0" editable="false" layoutX="551.0" layoutY="165.0" prefHeight="25.0" prefWidth="60.0" />
