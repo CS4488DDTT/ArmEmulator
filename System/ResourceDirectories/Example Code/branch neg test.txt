@@ -1,10 +1,10 @@
 @ Branch Negative Test @
 @ Must test both true and false@
-@ 00 @ ld positive r5;
+@ 00 @ ld negative r5;
 @ 01 @ brn r5 m04;
 @ 02 @ negative: #-000c;
 @ 03 @ positive: #000c;
-@ 04 @ ld negative r5;
+@ 04 @ ld positive r5;
 @ 05 @ brn r5 m07;
 @ 06 @ hlt;
 @ 07 @ wr r5;

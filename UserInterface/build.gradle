@@ -4,7 +4,7 @@
 
 plugins {
     id 'CS4488.Capstone.java-application-conventions'
-
+    id 'application'
     id 'org.openjfx.javafxplugin' version '0.0.13'
 }
 
@@ -22,12 +22,21 @@ dependencies {
     // from the library & System
     implementation project(":Library")
     implementation project(":System")
+    implementation project(":Executor")
+    implementation project(":Translator")
 
 }
 
 application {
     // Define the main class for the application.
     mainClass = 'CS4488.Capstone.UserInterface.App'
+}
+sourceSets {
+    main {
+        java {
+            srcDirs = ["src/main/java"]
+        }
+    }
 }
 test {
     useJUnitPlatform()

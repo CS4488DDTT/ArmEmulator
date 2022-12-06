@@ -1,7 +1,6 @@
 package CS4488.Capstone.UserInterface;
 
 
-import CS4488.Capstone.Library.Tools.Hex4digit;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
@@ -13,12 +12,20 @@ import javafx.stage.FileChooser;
 
 
 import java.io.File;
-import java.util.ArrayList;
 
 public class EmulatorGUIController {
     private final Orchestrator orc = Orchestrator.getInstance();
 
     private String[][] RAM;
+
+    /*
+    We are using this to limit the amount of states we will record in the UI
+    */
+    private int totalStates = 0;
+
+    private final int maxDisplayableStates = 499;
+
+    private boolean badBool = false;
 
     private File loadedProgram;
 
@@ -150,12 +157,13 @@ public class EmulatorGUIController {
         txtChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("Txt files","*.txt"));
         File file = txtChooser.showOpenDialog(null);
         if (file != null){
-
+            orc.clearProgram();
             loadedProgram = file;
             inputBox.setText(orc.loadFile(file.getAbsolutePath()));
             orc.translateAndLoad(file.getAbsolutePath());
         }
-
+        totalStates = 0;
+        badBool = false;
         initializeMemoryTable();
 
     }
@@ -169,18 +177,18 @@ public class EmulatorGUIController {
     @FXML
     void initializeMemoryTable(){
         short annoying = 0;
-        RAM = new String[256][17];
-        for (int i = 1;i<256;i++){
-            for(int j = 1; j < 17; j++){
+        RAM = new String[256][500];
+        for (int i = 1;i<255;i++){
+            for(int j = 1; j < 2; j++){
                 RAM[i][j] = String.valueOf(orc.convertToHexChars(annoying));
             }
         }
         RAM[0][0] = "Loc     ";
-        for(int i = 1;i<17;i++){
+        for(int i = 1;i<2;i++){
             short painful = (short)(i-1);
             RAM[0][i] = String.valueOf(orc.convertToHexChars(painful));
         }
-        for(int i = 1;i<256;i++){
+        for(int i = 1;i<255;i++){
             short location = (short)(i-1);
             RAM[i][0] = String.valueOf(orc.convertToHexChars(location));
         }
@@ -195,8 +203,8 @@ public class EmulatorGUIController {
     void printInitialRAMValues(){
 
         String memArray = "";
-        for (int i = 0; i< 256;i++){
-            for( int j = 0; j < 16; j++){
+        for (int i = 0; i< 255;i++){
+            for( int j = 0; j < 2; j++){
                 memArray += RAM[i][j] + "  ";
             }
             memArray += "\n";
@@ -212,13 +220,69 @@ public class EmulatorGUIController {
     }
     //Update RAM values, incomplete
     @FXML
-    void updateRAMValues(){
-        //String newMemArray = orc.getProgramState();
-        ArrayList<ArrayList<Hex4digit>> newHex4DigitMemarray = orc.getProgramState().memoryStateHistory;
-        int x = 0; // A relic
+    void updateRAMValuesInDisplay(){
+
+
+        setRAMValues(totalStates);
+        if(!maxStatesReached()){
+            memoryTable.clear();
+            String memArray = "";
+            for (int i = 0; i< 255;i++){
+                for( int j = 0; j < totalStates-1; j++){
+                    memArray += RAM[i][j] + "  ";
+                }
+                memArray += "\n";
+
+            }
+
+            memoryTable.setText(memArray);
+
+        }
+        else if(maxStatesReached() && !badBool){
+            badBool = true;
+            Alert weCantShowMore = new Alert(Alert.AlertType.WARNING);
+            weCantShowMore.setContentText("Maximum possible number of states to be displayed reached, state history can not be updated in display!");
+            weCantShowMore.showAndWait();
+        }
+
+
+
 
 
     }
+
+    /**
+     * Sets RAM values at a point in time
+     * @param n
+
+     */
+    @FXML
+    private void setRAMValues(int n) {
+        if(n>=maxDisplayableStates){
+            throw new RuntimeException();
+        }
+        RAM[0][n]= String.valueOf(orc.convertToHexChars(Short.valueOf(String.valueOf(n))));
+
+        for (int i = 1;i<255;i++){
+            RAM[i][n] = orc.getProgramState().getMemoryStateHistoryValue(i).getString();
+
+        }
+
+
+
+
+    }
+
+    @FXML
+    private boolean maxStatesReached() {
+
+        if(totalStates >= maxDisplayableStates){
+            return true;
+        }
+        return false;
+    }
+
+
 
     /**
      * Execute step once
@@ -268,24 +332,21 @@ public class EmulatorGUIController {
      */
     @FXML
     void getRegisters(){
-        R0.setText(String.valueOf(orc.getProgramState().registers[0].getValue()));
+        R0.setText(String.valueOf(orc.getProgramState().registers[0].getHexChars()));
 
-        R1.setText(String.valueOf(orc.getProgramState().registers[1].getValue()));
+        R1.setText(String.valueOf(orc.getProgramState().registers[1].getHexChars()));
 
-        R2.setText(String.valueOf(orc.getProgramState().registers[2].getValue()));
+        R2.setText(String.valueOf(orc.getProgramState().registers[2].getHexChars()));
 
-        R3.setText(String.valueOf(orc.getProgramState().registers[3].getValue()));
+        R3.setText(String.valueOf(orc.getProgramState().registers[3].getHexChars()));
 
         pc.setText(String.valueOf(orc.getProgramState().registers[15].getValue()));
 
-    }
 
-    /**
-     * Writes input from orchestrator to output box
-     */
-    @FXML
-    void writeToOutput(){
-        //TODO figure this out
+
+        OUT.setText(orc.getProgramState().output.getString());
+
+
 
     }
 
@@ -307,31 +368,70 @@ public class EmulatorGUIController {
     @FXML
     void executeStep(){
 
-        if(orc.getError() != "Orchestrator: No Error."){
-            Alert error = new Alert(Alert.AlertType.ERROR);
-            error.setContentText(orc.getError());
-            error.showAndWait();
-            abortProgram();
-            orc.translateAndLoad(loadedProgram.getAbsolutePath());
+        incrimententTotalStates();
+
+        System.out.println(orc.getProgramState().output.getString());
+
+        getRegisters();
+
+        try{
+            if(orc.getError() != "Orchestrator: No Error."){
+                Alert error = new Alert(Alert.AlertType.ERROR);
+                error.setContentText(orc.getError());
+                error.showAndWait();
+                abortProgram();
+                orc.translateAndLoad(loadedProgram.getAbsolutePath());
+            }
+            else if (orc.getProgramState().registers[15].getValue() != -1){
+
+
+
+                if(IN.getText() != ""){
+                    orc.sendInput(orc.convertToHexChars(Short.valueOf(IN.getText())));
+                }
+
+                orc.next();
+
+
+
+            }
+            else if (orc.getProgramState().registers[15].getValue() == -1){
+
+                Alert end = new Alert(Alert.AlertType.WARNING);
+                end.setContentText("End of file reached");
+
+                end.showAndWait();
+
+
+
+            }
+
+        } catch (Exception e){
+            System.out.println("I am in execute step");
         }
-        else if (orc.getProgramState().registers[15].getValue() != -1){
-            getRegisters();
-            orc.next();
 
-        }
-        else if (orc.getProgramState().registers[15].getValue() == -1){
-            Alert end = new Alert(Alert.AlertType.WARNING);
-            end.setContentText("End of file reached");
-            end.showAndWait();
+        //I was right here getting updating of ram values working
 
-
-
-        }
-
-        updateRAMValues();
+        updateRAMValuesInDisplay();
+    }
+    @FXML
+    void incrimententTotalStates(){
+        totalStates +=1;
     }
 
+    @FXML
+    void assemble(ActionEvent actionEvent){
+        orc.clearProgram();
+        inputBox.setText(orc.loadFile(loadedProgram.getAbsolutePath()));
+        orc.translateAndLoad(loadedProgram.getAbsolutePath());
+        memoryTable.clear();
 
+        totalStates = 0;
+        badBool = false;
+        initializeMemoryTable();
+
+        getRegisters();
+    }
 
 
     /**

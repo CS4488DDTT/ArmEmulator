@@ -521,69 +521,69 @@ public class Translator {
 
 
 
-    public static void main(String[] args) throws Exception {
-        //"Translator/src/main/java/CS4488/Capstone/Translator/Program 8 - Random Instructions.txt"
-        //"Example Code/Program 1, Hello Branch and Math.txt"
-        //"Example Code/Program 2, 4 Input 4 Operations.txt"
-        //"Example Code/Program 3, Hello Memory.txt"
-        //"Example Code/Program 4, Hello In Out.txt"
-        //Example Code/Program 6, Dangerous Input.txt
-        //Example Code/Program XYZ, TestingCoverage.txt
-        //ResourceDirectories/translationTester.txt
-        //Translator/ResourceDirectories/Example Code/Program XYZ, TestingCoverage.txt
-        //"Translator/ResourceDirectories/bad comment.txt"
-
-        Translator translator = new Translator("");
-        //@@--[\s\S]*--@@
-        //(?<=@).*?(?=@)
-
-
-
-
-        String file = translator.readFile("Translator/ResourceDirectories/translationTester.txt");
-
-
-        String[] parsedFile = translator.parseFile(file);
-
-        if(parsedFile != null){
-            for(int i  = 0; i< parsedFile.length; i++){
-                System.out.println(i + ") " + parsedFile[i]);
-            }
-
-            translator.parseOutLabels(parsedFile);
-            System.out.println("\n");
-
-            for(int i  = 0; i< parsedFile.length; i++){
-                System.out.println(i + ") " + parsedFile[i].trim());
-            }
-            System.out.println();
-
-            String [] newFile = translator.parseInLineHexNumbers(parsedFile);
-
-            for(int i  = 0; i< newFile.length; i++){
-                System.out.println(i + ") " + newFile[i]);
-            }
-
-
-            System.out.println("Translation: \n");
-
-            ArrayList<Hex4digit> translatedCode = translator.convertToHex(parsedFile);
-            System.out.println(translatedCode.size() + "\n");
-
-            for(int i  = 0; i< translatedCode.size(); i++){
-
-                System.out.println(i + ") " + translatedCode.get(i).getString());
-
-            }
-
-        }else{
-            System.out.println("Error parsing file");
-        }
-
-
-
-
-    }
+//    public static void main(String[] args) throws Exception {
+//        //"Translator/src/main/java/CS4488/Capstone/Translator/Program 8 - Random Instructions.txt"
+//        //"Example Code/Program 1, Hello Branch and Math.txt"
+//        //"Example Code/Program 2, 4 Input 4 Operations.txt"
+//        //"Example Code/Program 3, Hello Memory.txt"
+//        //"Example Code/Program 4, Hello In Out.txt"
+//        //Example Code/Program 6, Dangerous Input.txt
+//        //Example Code/Program XYZ, TestingCoverage.txt
+//        //ResourceDirectories/translationTester.txt
+//        //Translator/ResourceDirectories/Example Code/Program XYZ, TestingCoverage.txt
+//        //"Translator/ResourceDirectories/bad comment.txt"
+//
+//        Translator translator = new Translator("");
+//        //@@--[\s\S]*--@@
+//        //(?<=@).*?(?=@)
+//
+//
+//
+//
+//        String file = translator.readFile("Translator/ResourceDirectories/translationTester.txt");
+//
+//
+//        String[] parsedFile = translator.parseFile(file);
+//
+//        if(parsedFile != null){
+//            for(int i  = 0; i< parsedFile.length; i++){
+//                System.out.println(i + ") " + parsedFile[i]);
+//            }
+//
+//            translator.parseOutLabels(parsedFile);
+//            System.out.println("\n");
+//
+//            for(int i  = 0; i< parsedFile.length; i++){
+//                System.out.println(i + ") " + parsedFile[i].trim());
+//            }
+//            System.out.println();
+//
+//            String [] newFile = translator.parseInLineHexNumbers(parsedFile);
+//
+//            for(int i  = 0; i< newFile.length; i++){
+//                System.out.println(i + ") " + newFile[i]);
+//            }
+//
+//
+//            System.out.println("Translation: \n");
+//
+//            ArrayList<Hex4digit> translatedCode = translator.convertToHex(parsedFile);
+//            System.out.println(translatedCode.size() + "\n");
+//
+//            for(int i  = 0; i< translatedCode.size(); i++){
+//
+//                System.out.println(i + ") " + translatedCode.get(i).getString());
+//
+//            }
+//
+//        }else{
+//            System.out.println("Error parsing file");
+//        }
+//
+//
+//
+//
+//    }
 
 
 }

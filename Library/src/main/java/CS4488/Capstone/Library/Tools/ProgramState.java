@@ -128,6 +128,15 @@ public class ProgramState implements ProgramStateInterface {
         return stateSummary.toString();
     }
 
+    /**
+     * This is weird but neccessary. Returns a Hex4digit object from memoryStateHistory.
+     * @param n
+     * @return
+     */
+    public Hex4digit getMemoryStateHistoryValue(int n){
+        return memoryStateHistory.get(0).get(n);
+    }
+
 }
 
 
