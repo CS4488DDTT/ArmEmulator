@@ -47,6 +47,7 @@
     <AnchorPane maxHeight="-1.0" maxWidth="-1.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" style="-fx-background-color: #f47920;" VBox.vgrow="ALWAYS">
       <children>
             <Button fx:id="loadButton" layoutX="8.0" layoutY="8.0" mnemonicParsing="false" onAction="#loadFile" text="Load" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0" />
+            <!--<Button fx:id="saveButton" layoutX="8.0" layoutY="8.0" mnemonicParsing="false" onAction="#saveFile" text="Save" AnchorPane.leftAnchor="64.0" AnchorPane.topAnchor="0.0" />-->
             <Button fx:id="exitButton" layoutX="591.0" layoutY="8.0" mnemonicParsing="false" onAction="#exit" text="Exit" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
             <Text layoutX="279.0" layoutY="64.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Input">
                <font>
@@ -84,10 +85,35 @@
             <TextField fx:id="R1" editable="false" layoutX="621.0" layoutY="165.0" prefHeight="25.0" prefWidth="60.0" />
             <TextField fx:id="R2" editable="false" layoutX="690.0" layoutY="165.0" prefHeight="25.0" prefWidth="60.0" />
             <TextField fx:id="R3" editable="false" layoutX="759.0" layoutY="165.0" prefHeight="25.0" prefWidth="60.0" />
+            <TextField fx:id="R4" editable="false" layoutX="551.0" layoutY="215.0" prefHeight="25.0" prefWidth="60.0" />
+            <TextField fx:id="R5" editable="false" layoutX="621.0" layoutY="215.0" prefHeight="25.0" prefWidth="60.0" />
+            <TextField fx:id="R6" editable="false" layoutX="690.0" layoutY="215.0" prefHeight="25.0" prefWidth="60.0" />
+            <TextField fx:id="R7" editable="false" layoutX="759.0" layoutY="215.0" prefHeight="25.0" prefWidth="60.0" />
+            <TextField fx:id="R8" editable="false" layoutX="551.0" layoutY="265.0" prefHeight="25.0" prefWidth="60.0" />
+            <TextField fx:id="R9" editable="false" layoutX="621.0" layoutY="265.0" prefHeight="25.0" prefWidth="60.0" />
+            <TextField fx:id="Ra" editable="false" layoutX="690.0" layoutY="265.0" prefHeight="25.0" prefWidth="60.0" />
+            <TextField fx:id="Rb" editable="false" layoutX="759.0" layoutY="265.0" prefHeight="25.0" prefWidth="60.0" />
+            <TextField fx:id="Rc" editable="false" layoutX="551.0" layoutY="315.0" prefHeight="25.0" prefWidth="60.0" />
+            <TextField fx:id="Rd" editable="false" layoutX="621.0" layoutY="315.0" prefHeight="25.0" prefWidth="60.0" />
+            <TextField fx:id="Re" editable="false" layoutX="690.0" layoutY="315.0" prefHeight="25.0" prefWidth="60.0" />
+
             <Text layoutX="574.0" layoutY="157.0" strokeType="OUTSIDE" strokeWidth="0.0" text="R0" />
             <Text layoutX="644.0" layoutY="157.0" strokeType="OUTSIDE" strokeWidth="0.0" text="R1" />
             <Text layoutX="714.0" layoutY="157.0" strokeType="OUTSIDE" strokeWidth="0.0" text="R2" />
             <Text layoutX="782.0" layoutY="157.0" strokeType="OUTSIDE" strokeWidth="0.0" text="R3" />
+            <Text layoutX="574.0" layoutY="207.0" strokeType="OUTSIDE" strokeWidth="0.0" text="R4" />
+            <Text layoutX="644.0" layoutY="207.0" strokeType="OUTSIDE" strokeWidth="0.0" text="R5" />
+            <Text layoutX="714.0" layoutY="207.0" strokeType="OUTSIDE" strokeWidth="0.0" text="R6" />
+            <Text layoutX="782.0" layoutY="207.0" strokeType="OUTSIDE" strokeWidth="0.0" text="R7" />
+            <Text layoutX="574.0" layoutY="257.0" strokeType="OUTSIDE" strokeWidth="0.0" text="R8" />
+            <Text layoutX="644.0" layoutY="257.0" strokeType="OUTSIDE" strokeWidth="0.0" text="R9" />
+            <Text layoutX="714.0" layoutY="257.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Ra" />
+            <Text layoutX="782.0" layoutY="257.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Rb" />
+            <Text layoutX="574.0" layoutY="307.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Rc" />
+            <Text layoutX="644.0" layoutY="307.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Rd" />
+            <Text layoutX="714.0" layoutY="307.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Re" />
+
+
             <TextArea fx:id="memoryTable" layoutX="319.0" layoutY="425.0" prefHeight="200.0" prefWidth="710.0" />
       </children>
          <opaqueInsets>

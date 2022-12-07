@@ -33,6 +33,7 @@ public class Orchestrator implements ProgramStateAccess, TranslatorAccess, Execu
     private ExecutorFacade executor;
     private FileManager fileManager;
     private String error;
+    //private String currentFile;
 
 
 
@@ -41,6 +42,7 @@ public class Orchestrator implements ProgramStateAccess, TranslatorAccess, Execu
         translator = new TranslatorFacade();
         executor = new ExecutorFacade();
         fileManager = FileManager.getInstance();
+        //currentFile = null;
         this.resetError();
     }
 
@@ -58,6 +60,10 @@ public class Orchestrator implements ProgramStateAccess, TranslatorAccess, Execu
     public String getError() {
         return error;
     }
+
+//    public String getCurrentFile() {
+//        return currentFile;
+//    }
 
     @Override
     public boolean next() {
@@ -83,6 +89,7 @@ public class Orchestrator implements ProgramStateAccess, TranslatorAccess, Execu
 
     public void clearProgram(){
         executor.clearState();
+        //currentFile = null;
     }
 
 
@@ -119,9 +126,15 @@ public class Orchestrator implements ProgramStateAccess, TranslatorAccess, Execu
         }
 
         state.clearProgramState();
-        state.initializeState(translator.translateToMachine());
+        ArrayList<Hex4digit> code = translator.translateToMachine();
+        // Set up the emulator
+        state.initializeState(code);
         executor.setProgramState(state);
         translator.clearFile();
+        // Save the output code for utility sake.
+        //currentFile = path;
+        //saveHex(code, currentFile);
+
         return result;
     }
 
@@ -146,6 +159,30 @@ public class Orchestrator implements ProgramStateAccess, TranslatorAccess, Execu
 
         return fileManager.fileToString(path);
     }
+
+//    public boolean saveHex(ArrayList<Hex4digit> code, String path){
+//        boolean result = false;
+//        StringBuilder build = new StringBuilder();
+//
+//        for (Hex4digit h : code){
+//            build.append(h.getString());
+//            build.append("\n");
+//        }
+//
+//
+//        String hexPath = path.replace(".", "HEX.");
+//        result = fileManager.saveFile(build.toString(), hexPath);
+//
+//        return result;
+//    }
+//
+//    public boolean saveFile(String content, String path){
+//        boolean result = false;
+//        System.out.println(content + "\n\n PATH:" + path);
+//        result = fileManager.saveFile(content, path);
+//        return result;
+//    }
+
 
 
 

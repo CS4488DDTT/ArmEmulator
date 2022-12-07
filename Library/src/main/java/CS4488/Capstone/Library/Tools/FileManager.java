@@ -2,9 +2,7 @@ package CS4488.Capstone.Library.Tools;
 
 import CS4488.Capstone.Library.BackEndSystemInterfaces.FileManagerInterface;
 
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.IOException;
+import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -90,25 +88,46 @@ public class FileManager {
         return lastErrorMessage;
     }
 
-//    /**
-//     * Saves a string to the specified file Path
-//     * @param FileContents
-//     * @param FilePath
-//     */
-//    public boolean saveStringToFile(String FileContents, String FilePath) {
-//       boolean result;
-//       System.out.println("IS WRITABLE?????");
-//        result = true;//Files.isWritable(Paths.get(FilePath));
-//        System.out.println(result);
-//            try {
-//                Files.writeString(Paths.get(FilePath), FileContents);
-//                lastErrorMessage = defaultMessage;
-//            }
-//            catch (Exception e){
-//                result = false;
-//                lastErrorMessage = ("FileManager.saveStringToFile() Failure:\n" +
-//                        e.toString() + "\n" + e.getMessage());
-//            }
-//        return result;
-//    }
+    private BufferedWriter writer;
+
+    public boolean saveFile(String path, String Content){
+        boolean result = false;
+        result = setWriteFile(path);
+
+        if (result){
+            write(Content);
+        }
+
+        closeWrite();
+
+        return result;
+
+    }
+
+    private boolean setWriteFile(String path){
+        boolean result = false;
+        try {
+            Files.deleteIfExists(Path.of(path));
+            Files.createFile(Path.of(path));
+            writer = new BufferedWriter(new FileWriter(path));
+            result = true;
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return result;
+    }
+    private void write(String toWrite) {
+        try {
+            writer.write(toWrite);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+    private void closeWrite(){
+        try {
+            writer.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 }

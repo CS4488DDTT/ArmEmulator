@@ -9,3 +9,5 @@
 
 rootProject.name = 'ArmEmulator'
 include('UserInterface', 'Library', 'System', 'Translator', 'Executor')
+
+

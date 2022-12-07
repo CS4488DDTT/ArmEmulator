@@ -1,9 +1,0 @@
-br m02;
-bloop: #0002;
-ld bloop r0;
-ld bloop r1;
-add r0 r1 r2;
-hlt;
-ld m01 r2;
-add r0 r1 r2;
-test: #-0002;

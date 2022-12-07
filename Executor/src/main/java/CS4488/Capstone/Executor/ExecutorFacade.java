@@ -86,13 +86,13 @@ public class ExecutorFacade implements ExecutorInterface {
     public boolean next() {
         // First, check to see if a ProgramState has been instantiated
         if (!hasState()) {
-            System.out.println("Did not have state");
+            //System.out.println("Did not have state");
             return false;
         }
 
         // Check to see if there is another instruction from the program Counter i.e. Register 15
         if (!hasNext()) {
-            System.out.println("Did not have next instruction");
+            //System.out.println("Did not have next instruction");
             return false;
         }
 

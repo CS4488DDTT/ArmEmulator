@@ -62,7 +62,7 @@ public class Translator {
 
             } else {
                 this.setExceptionMessage("System Memory overflow, Lines exceed 256.");
-                System.out.println(this.getExceptionMessage());
+                //System.out.println(this.getExceptionMessage());
                 return false;
             }
         }
@@ -171,7 +171,7 @@ public class Translator {
         setArmFile("");
         setLoaded(false);
         setTranslatedCode(null);
-        System.out.println("Translator: Cleared all files.");
+        //System.out.println("Translator: Cleared all files.");
     }
 
 
@@ -244,7 +244,7 @@ public class Translator {
     private String removeComments(String line) {
         //(?<=@).*?(?=@)
 
-        System.out.println("Parsing out Comments (@ comment @).");
+        //System.out.println("Parsing out Comments (@ comment @).");
 
         String lineCopy = line;
         while (lineCopy.contains("@")) {
@@ -254,7 +254,7 @@ public class Translator {
 
             if(firstIndex == lineCopy.lastIndexOf('@')){
                 this.setExceptionMessage("Error occurred parsing comments. Please check your comments.");
-                System.out.println(this.getExceptionMessage());
+               // System.out.println(this.getExceptionMessage());
                 return "";
             }
             if (firstIndex + 1 < lineCopy.length()) {
@@ -266,7 +266,7 @@ public class Translator {
 
             }
         }
-        System.out.println("Comments parsed out.");
+        //System.out.println("Comments parsed out.");
         return lineCopy;
     }
 
@@ -324,7 +324,7 @@ public class Translator {
      */
 
     private String readFile(String file) {
-        System.out.println("Reading File from provided path. ");
+       // System.out.println("Reading File from provided path. ");
         return fileMan.readFile(file);
     }
 
@@ -337,12 +337,12 @@ public class Translator {
      * @return An array of strings, each string is a line of the file.
      */
     private String[] parseFile(String armFile) {
-        System.out.println("Successfully read file. Parsing out Comments, #, 0x.");
+       // System.out.println("Successfully read file. Parsing out Comments, #, 0x.");
         String noComments = removeComments(armFile)
                 .replaceAll("0x", "")
                 .replaceAll("#", "");
 
-        System.out.println("");
+       // System.out.println("");
 
         if(noComments.isEmpty()){
             return  null;
@@ -352,7 +352,7 @@ public class Translator {
     }
 
     private void parseOutLabels(String [] file){
-        System.out.println("Removing Labels.");
+       // System.out.println("Removing Labels.");
         for(int i = 0; i < file.length; i++){
             String line = file[i];
             if (line.contains(":")) {
@@ -361,7 +361,7 @@ public class Translator {
                         , file, i);
             }
         }
-        System.out.println("Labels Removed.");
+       // System.out.println("Labels Removed.");
     }
 
 
@@ -461,7 +461,7 @@ public class Translator {
                         "Line: %s" , lineIndex, builder);
                 this.setExceptionMessage(exception);
                 this.clearFile();
-                System.out.println(this.getExceptionMessage());
+               // System.out.println(this.getExceptionMessage());
                 return null;
             } else {
                 int stop = 5;
@@ -491,13 +491,13 @@ public class Translator {
                 String exception = String.format("Line %d contains unknown instructions.", lineIndex);
                 this.setExceptionMessage(exception);
                 this.clearFile();
-                System.out.println(this.getExceptionMessage());
+               // System.out.println(this.getExceptionMessage());
                 return null;
             }
 
 
         }
-        System.out.println("File successfully converted to hex code.");
+       // System.out.println("File successfully converted to hex code.");
 
         return translatedFile;
     }

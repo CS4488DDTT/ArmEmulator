@@ -36,6 +36,9 @@ public class EmulatorGUIController {
     private Button loadButton;
 
     @FXML
+    private Button saveButton;
+
+    @FXML
     private Button assembleButton;
 
     @FXML
@@ -64,6 +67,30 @@ public class EmulatorGUIController {
 
     @FXML
     private TextField R3;
+
+    @FXML
+    private TextField R4;
+    @FXML
+    private TextField R5;
+    @FXML
+    private TextField R6;
+    @FXML
+    private TextField R7;
+    @FXML
+    private TextField R8;
+    @FXML
+    private TextField R9;
+    @FXML
+    private TextField Ra;
+    @FXML
+    private TextField Rb;
+    @FXML
+    private TextField Rc;
+    @FXML
+    private TextField Rd;
+    @FXML
+    private TextField Re;
+
 
     @FXML
     private TextField IN;
@@ -167,6 +194,20 @@ public class EmulatorGUIController {
         initializeMemoryTable();
 
     }
+
+//    /**
+//     * @author Traae
+//     *
+//     * Save's what ever isin the input box, currently only functions using the orchastroator's currentFile, but can be changed.
+//     *
+//     * @param actionEvent
+//     */
+//    @FXML
+//    void saveFile(ActionEvent actionEvent){
+//        if (orc.getCurrentFile() != null){
+//            orc.saveFile(inputBox.getText(), orc.getCurrentFile());
+//        }
+//    }
 
     //Memory table Methods and Buttons
 
@@ -340,7 +381,32 @@ public class EmulatorGUIController {
 
         R3.setText(String.valueOf(orc.getProgramState().registers[3].getHexChars()));
 
+        R4.setText(String.valueOf(orc.getProgramState().registers[4].getHexChars()));
+
+        R5.setText(String.valueOf(orc.getProgramState().registers[5].getHexChars()));
+
+        R6.setText(String.valueOf(orc.getProgramState().registers[6].getHexChars()));
+
+        R7.setText(String.valueOf(orc.getProgramState().registers[7].getHexChars()));
+
+        R8.setText(String.valueOf(orc.getProgramState().registers[8].getHexChars()));
+
+        R9.setText(String.valueOf(orc.getProgramState().registers[9].getHexChars()));
+
+        Ra.setText(String.valueOf(orc.getProgramState().registers[10].getHexChars()));
+
+        Rb.setText(String.valueOf(orc.getProgramState().registers[11].getHexChars()));
+
+        Rc.setText(String.valueOf(orc.getProgramState().registers[12].getHexChars()));
+
+        Rd.setText(String.valueOf(orc.getProgramState().registers[13].getHexChars()));
+
+        Re.setText(String.valueOf(orc.getProgramState().registers[14].getHexChars()));
+
+
         pc.setText(String.valueOf(orc.getProgramState().registers[15].getValue()));
+
+
 
 
 
@@ -367,10 +433,10 @@ public class EmulatorGUIController {
      */
     @FXML
     void executeStep(){
-
+        boolean displayEndMessage = false;
         incrimententTotalStates();
 
-        System.out.println(orc.getProgramState().output.getString());
+       // System.out.println(orc.getProgramState().output.getString());
 
         getRegisters();
 
@@ -392,27 +458,26 @@ public class EmulatorGUIController {
 
                 orc.next();
 
-
-
             }
             else if (orc.getProgramState().registers[15].getValue() == -1){
-
-                Alert end = new Alert(Alert.AlertType.WARNING);
-                end.setContentText("End of file reached");
-
-                end.showAndWait();
-
-
-
+                displayEndMessage = true;
             }
 
         } catch (Exception e){
             System.out.println("I am in execute step");
         }
 
+
+
         //I was right here getting updating of ram values working
 
         updateRAMValuesInDisplay();
+
+        if (displayEndMessage){
+            Alert end = new Alert(Alert.AlertType.WARNING);
+            end.setContentText("End of file reached");
+            end.showAndWait();
+        }
     }
     @FXML
     void incrimententTotalStates(){

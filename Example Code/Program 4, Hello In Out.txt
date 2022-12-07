@@ -1,8 +1,0 @@
-@ This program should take and input, and return some output.@
-br m02;
-#0003;
-ld m01 r0;
-rd r1;
-mul r0 r1 r0;
-wr r0;
-hlt;
