@@ -1,3 +1,6 @@
+/*
+Code Written by Thomas Neyman
+ */
 package CS4488.Capstone.Executor;
 
 import CS4488.Capstone.Library.BackEndSystemInterfaces.ExecutorInterface;
@@ -6,6 +9,14 @@ import CS4488.Capstone.Library.Tools.ProgramState;
 import CS4488.Capstone.Library.Tools.Hex4digit;
 
 import java.util.ArrayList;
+
+/*
+========================================================
+This class is used to interface with the rest of the application
+when performing instructions. the next() function is called by
+the orchestrator and all other functionality of the ExecutorFacade
+is handled internally.
+ */
 
 public class ExecutorFacade implements ExecutorInterface {
 
