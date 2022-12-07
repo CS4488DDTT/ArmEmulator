@@ -1,3 +1,6 @@
+/*
+Code Written by Thomas Neyman
+ */
 package CS4488.Capstone.Executor;
 
 import CS4488.Capstone.Library.BackEndSystemInterfaces.ExecutorInterface;
@@ -6,6 +9,14 @@ import CS4488.Capstone.Library.Tools.ProgramState;
 import CS4488.Capstone.Library.Tools.Hex4digit;
 
 import java.util.ArrayList;
+
+/*
+========================================================
+This class is used to interface with the rest of the application
+when performing instructions. the next() function is called by
+the orchestrator and all other functionality of the ExecutorFacade
+is handled internally.
+ */
 
 public class ExecutorFacade implements ExecutorInterface {
 
@@ -29,6 +40,14 @@ public class ExecutorFacade implements ExecutorInterface {
         pc.value = ProgramState.getInstance().registers[15];
         pc.memoryLocation = MEMORYSTATEINDEX;
         ProgramState.getInstance().pcHistory.add(pc);
+    }
+
+    // Simply checks the next instruction being executed, which will be
+    // stored in register 15, and if the instruction is a read, the function
+    // returns true.
+    public boolean checkForRead() {
+        Hex4digit inst = ProgramState.getInstance().memoryStateHistory.get(MEMORYSTATEINDEX).get(ProgramState.getInstance().registers[15].getValue());
+        return inst.getFirst() == 'd';
     }
 
     // takes in a hex4digit instruction and based on the first value
